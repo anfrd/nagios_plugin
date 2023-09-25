@@ -12,10 +12,10 @@ use feature qw(say);
 
 our $VERSION = '0.1';
 
-use Nagios::Plugin::Getopt;
-#use Nagios::Plugin::Threshold;
-#use Nagios::Plugin::Config;
-use Nagios::Plugin;
+use Nagios::Monitoring::Plugin::Getopt;
+#use Nagios::Monitoring::Plugin::Threshold;
+#use Nagios::Monitoring::Plugin::Config;
+use Nagios::Monitoring::Plugin;
 
 use vars qw(
   $plugin
@@ -53,13 +53,13 @@ sub verbose {
 }
 
 sub run {
-     $plugin = Nagios::Plugin->new( shortname => 'CHECK_MOUNTPOINT' );
+     $plugin = Nagios::Monitoring::Plugin->new( shortname => 'CHECK_MOUNTPOINT' );
 
      my $usage = <<'EOT';
 check_mountpoint [-m|--mountpoint <path>]
 EOT
         
-     $options = Nagios::Plugin::Getopt->new(
+     $options = Nagios::Monitoring::Plugin::Getopt->new(
         usage   => $usage,
         version => $VERSION,
         blurb   => 'Check mountpoint'

@@ -8,7 +8,7 @@
 # + host check and service check in nagios if targeting a host (less XML pull that way).
 # LICENSE: GPL, Copyright 2006 Eli Stair <estair {at} ilm {dot} com>
 # CHANGE LOG:
-# + add Nagios::Plugin module
+# + add Nagios::Monitoring::Plugin module
 # + add caching answer to file
 ##########
 
@@ -22,9 +22,9 @@ use DateTime::Format::Epoch::Unix;
 
 our $VERSION = '0.2';
 
-use Nagios::Plugin::Getopt;
-use Nagios::Plugin::Threshold;
-use Nagios::Plugin;
+use Nagios::Monitoring::Plugin::Getopt;
+use Nagios::Monitoring::Plugin::Threshold;
+use Nagios::Monitoring::Plugin;
 
 use vars qw(
   $np
@@ -62,7 +62,7 @@ sub verbose {
 }
 
 sub run {
-     $np = Nagios::Plugin->new( shortname => 'CHECK_GANGLIA' );
+     $np = Nagios::Monitoring::Plugin->new( shortname => 'CHECK_GANGLIA' );
 
      my $usage = <<'EOT';
 check_ganglia.pl [-H|--host <host>] [-P|--port <port>] [-T|--target <target_host>] [-m|--metric] [--cache <path/to/cache/>] [-t|--timeout] 
@@ -70,7 +70,7 @@ check_ganglia.pl [-H|--host <host>] [-P|--port <port>] [-T|--target <target_host
     [-h|--help] [-V|--version] [--usage] [--debug] [--verbose]
 EOT
              
-     $options = Nagios::Plugin::Getopt->new(
+     $options = Nagios::Monitoring::Plugin::Getopt->new(
         usage   => $usage,
         version => $VERSION,
         blurb   => 'Check ganglia host/metric'

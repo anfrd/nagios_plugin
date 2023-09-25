@@ -11,10 +11,10 @@ use LWP::UserAgent;
 
 our $VERSION = '0.1';
 
-use Nagios::Plugin::Getopt;
-use Nagios::Plugin::Threshold;
-use Nagios::Plugin::Config;
-use Nagios::Plugin;
+use Nagios::Monitoring::Plugin::Getopt;
+use Nagios::Monitoring::Plugin::Threshold;
+use Nagios::Monitoring::Plugin::Config;
+use Nagios::Monitoring::Plugin;
 
 use vars qw(
   $np
@@ -55,14 +55,14 @@ sub verbose {
 }
 
 sub run {
-     $np = Nagios::Plugin->new( shortname => 'CHECK_KEYSTONE' );
+     $np = Nagios::Monitoring::Plugin->new( shortname => 'CHECK_KEYSTONE' );
 
      my $usage = <<'EOT';
 check_keystone.pl [-a|--auth_url <url>] [-P|--port] [-u|--username <username>] [-T|--tenant <tenant>]  [-p|--password <password>] [-C|--config <path/to/config>] [-k|--sslnocheck]
                   [-h|--help] [-V|--version] [--usage] [--debug] [--verbose]
 EOT
         
-     $options = Nagios::Plugin::Getopt->new(
+     $options = Nagios::Monitoring::Plugin::Getopt->new(
         usage   => $usage,
         version => $VERSION,
         blurb   => 'Check an OpenStack Keystone Server'
@@ -126,7 +126,7 @@ EOT
      $options->getopts();
 
      if ($options->config) {
-	 my $Config = Nagios::Plugin::Config->read( $options->config )
+	 my $Config = Nagios::Monitoring::Plugin::Config->read( $options->config )
 	     or $np->nagios_die("Cannot read config file " . $options->config);
 	 $user = $Config->{client}->{user}[0];
 	 $password = $Config->{client}->{password}[0];

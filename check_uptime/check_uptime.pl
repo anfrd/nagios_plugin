@@ -18,9 +18,9 @@ use POSIX;
 
 our $VERSION = '0.1';
 
-use Nagios::Plugin::Getopt;
-use Nagios::Plugin::Threshold;
-use Nagios::Plugin;
+use Nagios::Monitoring::Plugin::Getopt;
+use Nagios::Monitoring::Plugin::Threshold;
+use Nagios::Monitoring::Plugin;
 
 use vars qw(
   $plugin
@@ -61,7 +61,7 @@ sub verbose {
 }
 
 sub run {
-     $plugin = Nagios::Plugin->new( shortname => 'CHECK_UPTIME' );
+     $plugin = Nagios::Monitoring::Plugin->new( shortname => 'CHECK_UPTIME' );
 
      my $usage = <<'EOT';
 check_uptime [-c/--critical=value] [-w/--warning=value]
@@ -69,7 +69,7 @@ check_uptime [-c/--critical=value] [-w/--warning=value]
 	     [--noperfdata]
 EOT
 
-     $options = Nagios::Plugin::Getopt->new(
+     $options = Nagios::Monitoring::Plugin::Getopt->new(
 	usage   => $usage,
 	version => $VERSION,
 	blurb   => 'Monitoring Uptime'

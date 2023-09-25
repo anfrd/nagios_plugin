@@ -20,9 +20,9 @@ use File::Basename;
 
 our $VERSION = '0.1';
 
-use Nagios::Plugin::Getopt;
-use Nagios::Plugin::Threshold;
-use Nagios::Plugin;
+use Nagios::Monitoring::Plugin::Getopt;
+use Nagios::Monitoring::Plugin::Threshold;
+use Nagios::Monitoring::Plugin;
 
 use vars qw(
   $plugin
@@ -63,7 +63,7 @@ sub verbose {
 }
 
 sub run {
-     $plugin = Nagios::Plugin->new( shortname => 'CHECK_FILE_CHANGE' );
+     $plugin = Nagios::Monitoring::Plugin->new( shortname => 'CHECK_FILE_CHANGE' );
 
      my $usage = <<'EOT';
 check_file_chenge.pl --file=/path/to/file
@@ -71,7 +71,7 @@ check_file_chenge.pl --file=/path/to/file
 
 EOT
 
-     $options = Nagios::Plugin::Getopt->new(
+     $options = Nagios::Monitoring::Plugin::Getopt->new(
 	usage   => $usage,
 	version => $VERSION,
 	blurb   => 'Monitoring file change'

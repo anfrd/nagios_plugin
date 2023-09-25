@@ -11,10 +11,10 @@ use Net::FTP;
 
 our $VERSION = '0.1';
 
-use Nagios::Plugin::Getopt;
-use Nagios::Plugin::Threshold;
-use Nagios::Plugin::Config;
-use Nagios::Plugin;
+use Nagios::Monitoring::Plugin::Getopt;
+use Nagios::Monitoring::Plugin::Threshold;
+use Nagios::Monitoring::Plugin::Config;
+use Nagios::Monitoring::Plugin;
 
 use vars qw(
   $plugin
@@ -54,14 +54,14 @@ sub verbose {
 }
 
 sub run {
-     $plugin = Nagios::Plugin->new( shortname => 'CHECK_FTP' );
+     $plugin = Nagios::Monitoring::Plugin->new( shortname => 'CHECK_FTP' );
 
      my $usage = <<'EOT';
 check_device_mounted [-H|--host <host>] [-P|--port] [-u|--user] [-p|--passwd] [-C|--config <path/to/config>] [-t|--timeout] [--passive]
              [-h|--help] [-V|--version] [--usage] [--debug] [--verbose]
 EOT
         
-     $options = Nagios::Plugin::Getopt->new(
+     $options = Nagios::Monitoring::Plugin::Getopt->new(
         usage   => $usage,
         version => $VERSION,
         blurb   => 'Check ftp server'
@@ -111,7 +111,7 @@ EOT
      $options->getopts();
 
      if ($options->config) {
-	 my $Config = Nagios::Plugin::Config->read( $options->config )
+	 my $Config = Nagios::Monitoring::Plugin::Config->read( $options->config )
 	     or $plugin->nagios_die("Cannot read config file " . $options->config);
 	 $user = $Config->{ftp}->{user}[0];
 	 $passwd = $Config->{ftp}->{password}[0];

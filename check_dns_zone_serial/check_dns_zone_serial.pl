@@ -12,8 +12,8 @@ use Net::DNS;
 
 our $VERSION = '0.2';
 
-use Nagios::Plugin::Getopt;
-use Nagios::Plugin;
+use Nagios::Monitoring::Plugin::Getopt;
+use Nagios::Monitoring::Plugin;
 use Data::Validate::Domain;
 use List::Util qw(max min);
 
@@ -56,14 +56,14 @@ sub verbose {
 
 
 sub run {
-    $plugin = Nagios::Plugin->new( shortname => 'CHECK_DNS_ZONE_SERIAL' );
+    $plugin = Nagios::Monitoring::Plugin->new( shortname => 'CHECK_DNS_ZONE_SERIAL' );
 
     my $usage = <<'EOT';
 check_dns_zone_serial [-z|--zone=zonename] [--ns=ns1,ns2]
                       [-h/--help] [--version] [--usage] [--debug] [--verbose]
 EOT
 
-    $options = Nagios::Plugin::Getopt->new(
+    $options = Nagios::Monitoring::Plugin::Getopt->new(
 	usage   => $usage,
 	version => $VERSION,
 	blurb   => 'Monitoring DNS Zone Serial number'

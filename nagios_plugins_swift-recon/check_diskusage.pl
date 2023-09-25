@@ -12,9 +12,9 @@ use JSON::XS;
 
 our $VERSION = '0.1';
 
-use Nagios::Plugin::Getopt;
-use Nagios::Plugin::Threshold;
-use Nagios::Plugin;
+use Nagios::Monitoring::Plugin::Getopt;
+use Nagios::Monitoring::Plugin::Threshold;
+use Nagios::Monitoring::Plugin;
 
 use vars qw(
   $plugin
@@ -54,14 +54,14 @@ sub verbose {
 }
 
 sub run {
-     $plugin = Nagios::Plugin->new( shortname => 'CHECK_DISKUSAGE' );
+     $plugin = Nagios::Monitoring::Plugin->new( shortname => 'CHECK_DISKUSAGE' );
 
      my $usage = <<'EOT';
 check_device_mounted [-H/--host <host>] [-p/--port] [-c/--critical=value] [-w/--warning=value]
              [-h/--help] [--version] [--usage] [--debug] [--verbose]
 EOT
              
-     $options = Nagios::Plugin::Getopt->new(
+     $options = Nagios::Monitoring::Plugin::Getopt->new(
         usage   => $usage,
         version => $VERSION,
         blurb   => 'Check disks usage on swift server'
